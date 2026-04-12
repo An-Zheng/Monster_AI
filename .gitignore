@@ -1,0 +1,16 @@
+# UE
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Content/
+
+# IDE
+.vs/
+*.sln
+*.VC.db
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db
