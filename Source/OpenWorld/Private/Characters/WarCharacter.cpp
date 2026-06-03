@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GroomComponent.h"
+#include "Items/Weapon.h"
 
 AWarCharacter::AWarCharacter()
 {
@@ -74,6 +75,7 @@ void AWarCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		EnhancedInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &AWarCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AWarCharacter::Look);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
+		EnhancedInputComponent->BindAction(EPressAction, ETriggerEvent::Triggered, this, &AWarCharacter::EKeyPressed);
 	}
 }
 
@@ -96,4 +98,14 @@ void AWarCharacter::Look(const FInputActionValue& Value)
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	AddControllerPitchInput(LookAxisVector.Y);
 	AddControllerYawInput(LookAxisVector.X);
+}
+
+void AWarCharacter::EKeyPressed(const FInputActionValue& Value)
+{
+	AWeapon* Weapon = Cast<AWeapon>(OverlappingItem);
+	if (Weapon)
+	{
+		Weapon->Equip(GetMesh(), FName("RightHandSocket"));
+		CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon;
+	}
 }

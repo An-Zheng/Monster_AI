@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "CharacterTypes.h"
 #include "WarAnimInstance.generated.h"
 
 /**
@@ -35,4 +36,7 @@ public:
 	//5. Check character is falling
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
 	bool IsFalling;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Movement | Character State")
+	ECharacterState CharacterState;
 };

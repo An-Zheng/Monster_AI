@@ -24,5 +24,6 @@ void UWarAnimInstance::NativeUpdateAnimation(float DeltaTime)
 	{
 		GroundSpeed = UKismetMathLibrary::VSizeXY(WarCharacterMovement->Velocity);
 		IsFalling = WarCharacterMovement->IsFalling();
+		CharacterState = WarCharacter->GetCharacterState();
 	}
 }
