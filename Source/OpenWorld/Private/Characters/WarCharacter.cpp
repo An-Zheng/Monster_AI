@@ -114,7 +114,7 @@ void AWarCharacter::EKeyPressed(const FInputActionValue& Value)
 
 void AWarCharacter::Attack()
 {
-	if (ActionState == EActionState::EAS_Unoccupied)
+	if (CanAttack())
 	{
 		PlayAttackMontage();
 		ActionState = EActionState::EAS_Attacking;
@@ -143,4 +143,19 @@ void AWarCharacter::PlayAttackMontage()
 
 		AnimInstance->Montage_JumpToSection(SectionName, AttackMontage);
 	}
+}
+
+void AWarCharacter::AttackEnd()
+{
+	ActionState = EActionState::EAS_Unoccupied;
+}
+
+bool AWarCharacter::CanAttack()
+{
+	if (CharacterState != ECharacterState::ECS_Unequipped && 
+		ActionState == EActionState::EAS_Unoccupied)
+	{
+		return true;
+	}
+	return false;
 }
