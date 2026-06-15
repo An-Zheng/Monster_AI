@@ -14,6 +14,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UGroomComponent;
 class AItem;
+class UAnimMontage;
 
 UCLASS()
 class OPENWORLD_API AWarCharacter : public ACharacter
@@ -45,13 +46,19 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputAction* EPressAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UInputAction* AttackAction;
+
+
+	//Action functions
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
-
 	void EKeyPressed(const FInputActionValue& Value);
-
 	void MoveFoward(float value);
+	void Attack();
 
+	//Play montage functions
+	void PlayAttackMontage();
 	
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -71,5 +78,12 @@ private:
 	AItem* OverlappingItem;
 
 	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+	EActionState ActionState = EActionState::EAS_Unoccupied;
+
+	/*
+		Animation montages
+	*/
+	UPROPERTY(EditDefaultsOnly, Category = Montages)
+	UAnimMontage* AttackMontage;
 
 };
