@@ -8,11 +8,11 @@
 AItem::AItem()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	itemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
-	RootComponent = itemMesh;
+	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
+	RootComponent = ItemMesh;
 
 	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("SpherehComponent"));
-	Sphere->SetupAttachment(itemMesh);
+	Sphere->SetupAttachment(ItemMesh);
 
 }
 
@@ -61,6 +61,11 @@ void AItem::Tick(float DeltaTime)
 	runningTime += DeltaTime;
 
 	float deltaZ = amplitude * FMath::Sin(runningTime * timeConstant);
+
+	if (ItemState == EItemState::EIS_Hovering)
+	{
+		AddActorWorldOffset(FVector(0.f, 0.f, deltaZ));
+	}
 
 	//float movementRate = 50.f;
 	//float rotatorRate = 40.f;

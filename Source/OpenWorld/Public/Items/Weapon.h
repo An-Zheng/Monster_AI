@@ -15,6 +15,7 @@ class OPENWORLD_API AWeapon : public AItem
 	GENERATED_BODY()
 public:
 	void Equip(USceneComponent* SceneComponent, FName SocketName);
+	void AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName);
 	
 protected:
 
